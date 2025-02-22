@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  flask-app:
+    build:
+      context: ./flask_app
+    ports:
+      - '5000:5000'
+    depends_on:
+      - fastapi-api
+    environment:
+      - API_URL=http://fastapi-api:8000
+
+  fastapi-api:
+    build:
+      context: ./fastapi_api
+    ports:
+      - '8000:8000'

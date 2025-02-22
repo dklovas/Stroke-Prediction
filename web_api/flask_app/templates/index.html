@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stroke Prediction</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f9fc;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1,
+      h2 {
+        color: #444;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      label {
+        font-weight: bold;
+        display: block;
+        margin-top: 15px;
+      }
+
+      input,
+      select,
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      .error {
+        color: red;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .results {
+        background-color: #eaf4e3;
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+
+      .results p {
+        margin: 5px 0;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Stroke Prediction</h1>
+
+      {% if error %}
+      <p class="error">Error: {{ error }}</p>
+      {% endif %}
+
+      <div id="results" class="results {% if prediction is none %}hidden{% endif %}">
+        <h2>Results</h2>
+        <p>
+          <strong>Prediction:</strong> {{ "Stroke" if prediction == 1 else "No Stroke" if prediction == 0 else "" }}
+        </p>
+        <p><strong>Probability:</strong> {{ probability }}</p>
+      </div>
+
+      <form method="POST">
+        <label for="gender">Gender:</label>
+        <select name="gender" id="gender" required>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" min="0" max="100" step="0.1" required />
+
+        <label for="hypertension">Hypertension:</label>
+        <select name="hypertension" id="hypertension" required>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+
+        <label for="heart_disease">Heart Disease:</label>
+        <select name="heart_disease" id="heart_disease" required>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+
+        <label for="ever_married">Ever Married:</label>
+        <select name="ever_married" id="ever_married" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        <label for="work_type">Work Type:</label>
+        <select name="work_type" id="work_type" required>
+          <option value="Private">Private</option>
+          <option value="Self-employed">Self-employed</option>
+          <option value="Govt_job">Govt_job</option>
+          <option value="Children">Children</option>
+          <option value="Never_worked">Never_worked</option>
+        </select>
+
+        <label for="residence_type">Residence Type:</label>
+        <select name="residence_type" id="residence_type" required>
+          <option value="Urban">Urban</option>
+          <option value="Rural">Rural</option>
+        </select>
+
+        <label for="avg_glucose_level">Average Glucose Level:</label>
+        <input type="number" name="avg_glucose_level" id="avg_glucose_level" min="0" max="500" step="0.1" required />
+
+        <label for="bmi">BMI:</label>
+        <input type="number" name="bmi" id="bmi" min="0" max="100" step="0.1" required />
+
+        <label for="smoking_status">Smoking Status:</label>
+        <select name="smoking_status" id="smoking_status" required>
+          <option value="never smoked">Never smoked</option>
+          <option value="formerly smoked">Formerly smoked</option>
+          <option value="smokes">Smokes</option>
+        </select>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
